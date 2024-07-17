@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasky</title>
+    <link href="output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts.js" defer></script>
+    <style>
+      .search-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .search-icon {
+          position: absolute;
+            left: 10px;
+            top: 30%;
+            transform: translateY(-50%);
+            color: black;
+            font-size: 24px;
+        }
+
+        .search-input {
+            padding-left: 4rem; 
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-indigo-400 to-indigo-600 p-10" >
+<div class="m-2 bg-stone-50 rounded-lg">
+    <div class="flex flex-col md:flex-row h-screen pl-1">
+        <aside class="w-1/6 md:w-1/6 bg-slate-100 shadow-sm p-4 ml-0">
+            <div class="text-2xl font-bold mb-4 flex items-center">
+                <img src="/tasky.png" alt="Tasky logo" class="w-8 h-8 mr-2"> 
+                <span class="text-blue-600">Tasky</span>
+            </div>
+            <nav class="pl-7 flex-col justify-between">
+                <ul>
+                    <li class="mt-10 hover:bg-indigo-500 p-6 flex md:p-6"><a href="index.html" class="flex"><span class="material-icons">house</span> <span class="mr-2">Dashboard</span></a></li>
+                    <li class="mb-1 hover:bg-indigo-500 p-6 md:p-6"><a href="tasks.html"><i class="fas fa-tasks mr-2"></i>Tasks</a></li>
+                    <li class="mb-1 hover:bg-indigo-500 p-6 md:p-6"><a href="calendar.html"><i class="fas fa-calendar-alt mr-2"></i>Calendar</a></li>
+                    <li class="mb-1 hover:bg-indigo-500 p-6 md:p-6"><a href="members.html"><i class="fas fa-users mr-2"></i>Members</a></li>
+                </ul>
+                <div class="mt-10 flex items-center justify-center bg-blue-500 text-white p-4 rounded-lg shadow-md cursor-pointer">
+                    <span class="material-icons text-4xl">rocket</span>
+                    <span class="ml-2 text-lg">Upgrade to pro</span>
+                </div>
+            </nav>
+        </aside>
+        <main class="w-5/6 p-4 mr-5 md:w-5/6 ml-0 md:ml-7 mr-0 md:mr-5">
+            <div class="flex flex-col md:flex-row justify-between mt-6 mb-10  search-container">
+                <span class="material-icons search-icon">search</span>
+                <input id="search-input" class="search-input pt-1 pr-10 pb-1 items-center border-3 bg-gray-300 border-t-2 border-b-2 border-r-12 border-l-5" type="text" placeholder="Search tasks">
+                <div id="user-info" class="flex md:mt-0 justify-end">
+                    <a href="#" class="items-center text-gray-600"><span class="material-icons">mark_unread_chat_alt</span></a>
+                    <a href="#" class="items-center text-gray-600"><span class="material-icons">notifications</span></a>
+                    <a href="#" id="user-icon" class="items-center text-gray-600"><span class="material-icons">person</span></a>
+                    <button id="logout-btn" class="hidden bg-red-500 text-white ml-2 p-1 rounded">Logout</button>
+                </div>
+            </div>
+            <div class="flex justify-between flex-col md:flex-row items-center mb-10">
+                <div class="">
+                    <div class="flex mb-4 md:mb-0">
+                        <a href="#" id="preview-link" class="flex items-center text-sm border text-gray-600 mr-3"><span class="material-icons">widgets</span> <span class="ml-2">Preview</span></a>
+                        <a href="#" id="sort-link" class="flex items-center text-sm border text-gray-600 mr-3"><span class="material-icons">swap_vert</span> <span class="ml-2">Sort</span></a>
+                        <a href="#" id="filter-link" class="flex items-center text-sm border text-gray-600 mr-3"><span class="material-icons">tune</span> <span class="ml-2">Filter</span></a>
+                    </div>
+                </div>
+                <button id="add-task-btn" class="bg-blue-500 text-white p-2 rounded"><i class="fas fa-plus mr-2"></i>Add Task</button>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between gap-x-10">
+            <div class="w-1/3 task-list" id="in-progress-tasks">
+                <div class="flex items-center bg-white border-2 border-violet-500 rounded-md p-2 rounded mb-2 mr-6 justify-between">
+                    <div>In Progress <span id="in-progress-count">(0)</span></div>
+                    <a href="#" class="items-center text-gray-600"><span class="material-icons">more_vert</span></a>
+                </div>
+            </div>
+            <div class="w-1/3 task-list" id="completed-tasks">
+                <div class="flex items-center bg-white border-2 border-violet-500 rounded-md p-2 rounded mb-2 mr-6 justify-between" >
+                    <div>Completed <span id="completed-count">(0)</span></div>
+                    <a href="#" class="items-center text-gray-600"><span class="material-icons">more_vert</span></a>
+                </div>
+            </div>
+            <div class="w-1/3 task-list" id="overdue-tasks">
+                <div class="flex items-center bg-white border-2 border-violet-500 rounded-md p-2 rounded mb-2 mr-6 justify-between" >
+                    <div>Overdue<span id="overdue-count">(0)</span></div>
+                    <a href="#" class="items-center text-gray-600"><span class="material-icons">more_vert</span></a>
+                </div>
+            </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="task-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded max-w-lg w-full">
+            <h2 class="text-xl font-bold mb-4">Add Task</h2>
+            <form id="task-form">
+                <div class="mb-1">
+                    <label class="block mb-2">Title</label>
+                    <input type="text" id="task-title" class="w-full p-2 border rounded" required>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">Description</label>
+                    <textarea id="task-desc" class="w-full p-2 border rounded" required></textarea>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">Priority</label>
+                    <select id="task-priority" class="w-full p-2 border rounded" required>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">Category</label>
+                    <input type="text" id="task-category" class="w-full p-2 border rounded" required>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">Assigned People (comma separated)</label>
+                    <input type="text" id="task-assigned" class="w-full p-2 border rounded" required>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">Number of People Working</label>
+                    <input type="number" id="task-people" class="w-full p-2 border rounded" min="0" required>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">Start Time</label>
+                    <input type="datetime-local" id="task-start-time" class="w-full p-2 border rounded" required>
+                </div>
+                <div class="mb-1">
+                    <label class="block mb-2">End Time</label>
+                    <input type="datetime-local" id="task-end-time" class="w-full p-2 border rounded" required>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-500 text-white p-2 rounded">Save</button>
+                    <button type="button" id="cancel-btn" class="bg-gray-300 text-black p-2 rounded ml-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
